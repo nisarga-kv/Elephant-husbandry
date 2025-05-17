@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaja Setu Elephant Husbandry Data Portal</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li onclick="scrollToSection('about')" data-section="about" title="About the Portal">About</li>
+      <li onclick="scrollToSection('home')" data-section="home" title="Go to Home Section">Home</li>
+      <li onclick="scrollToSection('elephantData')" data-section="elephantData" title="Details about Elephants">Elephant Data
+        <ul class="dropdown">
+          <li onclick="scrollToSection('health')" data-section="health" title="Health Information">Health</li>
+          <li onclick="scrollToSection('nutrition')" data-section="nutrition" title="Nutrition Details">Nutrition</li>
+          <li onclick="scrollToSection('training')" data-section="training" title="Training Records">Training</li>
+        </ul>
+      </li>
+      <li onclick="scrollToSection('conflicts')" data-section="conflicts" title="Human-Elephant Conflicts">Conflicts</li>
+      <li onclick="scrollToSection('ecotourism')" data-section="ecotourism" title="Eco-Tourism Initiatives">Ecotourism</li>
+      <li onclick="scrollToSection('wildlife')" data-section="wildlife" title="Wildlife Conservation">Wildlife Sanctuaries</li>
+      <li onclick="scrollToSection('researchers')" data-section="researchers" title="Researcher Information">Researchers</li>
+      <li onclick="scrollToSection('resultsContainer')" data-section="results" title="View Results">Result</li>
+      <li onclick="scrollToSection('community')" data-section="community" title="Community Involvement">Community</li>
+      <li onclick="scrollToSection('womenYouthSHG')" data-section="womenYouthSHG" title="Women, Youth, and SHG Involvement">Women, Youth & SHG</li>
+    </ul>
+  </nav>
+
+
+  <div class="container" id="home">
+    <h1>Gaja Setu: Elephant Husbandry Data Portal</h1>
+    <p>Elephant Husbandry in North-Eastern India Region</p>
+  </div>
+  <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px;">
+    <div style="text-align: center;">
+      <img src="ele-population-map-of-india.jpg" alt="Elephant Distribution in NER of India" style="max-width: 80%; height: auto;" />
+      <p style="margin-top: 10px; font-size: 14px; color: #555;">Elephant population map of India</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="assam.jpg" alt="Elephant Distribution in NER of India" style="max-width: 70%; height: 80%;" />
+      <p style="margin-top: 10px; font-size: 14px; color: #555;">Elephant population map of Assam</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="graph.jpg" alt="Elephant Distribution in NER of India" style="max-width: 60%; height: auto;" />
+      <p style="margin-top: 10px; font-size: 14px; color: #555;">Elephant Distribution</p>
+    </div>
+  </div>
+  <div class="container" id="search">
+    <div class="filters">
+      <label for="location">Location:</label>
+      <select id="location" onchange="populateCenters()" required>
+        <option value="" disabled selected>--Select--</option>
+        <option value="Assam" data-region="North-East" data-population="High" data-elephants="700" data-area="78,438 sq km">Assam</option>
+        <option value="Meghalaya" data-region="North-East" data-population="Medium" data-elephants="450" data-area="22,429 sq km">Meghalaya</option>
+        <option value="Arunachal Pradesh" data-region="North-East" data-population="Low" data-elephants="300" data-area="83,743 sq km">Arunachal Pradesh</option>
+      </select>
+
+      <label for="center">Husbandry Center:</label>
+      <select id="center" required>
+        <option value="" disabled selected>--Select a center--</option>
+        <option value="Kaziranga" data-location="Assam" data-capacity="Large" data-staff="50" data-elephants="400" data-established="1905" data-veterinarian="Dr. A. Sharma">Kaziranga Center</option>
+        <option value="Shillong" data-location="Meghalaya" data-capacity="Medium" data-staff="30" data-elephants="250" data-established="1980" data-veterinarian="Dr. B. Gupta">Shillong Center</option>
+        <option value="Itanagar" data-location="Arunachal Pradesh" data-capacity="Small" data-staff="20" data-elephants="150" data-established="1995" data-veterinarian="Dr. C. Das">Itanagar Center</option>
+      </select>
+
+      <label for="dataType">Data Type:</label>
+      <select id="dataType" required>
+        <option value="All" data-category="General" data-importance="High" data-frequency="Monthly">All</option>
+        <option value="Health" data-category="Medical" data-importance="Critical" data-frequency="Weekly">Health</option>
+        <option value="Nutrition" data-category="Dietary" data-importance="High" data-frequency="Bi-Weekly">Nutrition</option>
+        <option value="Training" data-category="Behavioral" data-importance="Medium" data-frequency="Monthly">Training</option>
+        <option value="Conflicts" data-category="Incidents" data-importance="High" data-frequency="As Needed">Conflicts</option>
+        <option value="Ecotourism" data-category="Tourism" data-importance="Medium" data-frequency="Quarterly">Ecotourism</option>
+        <option value="Wildlife" data-category="Conservation" data-importance="High" data-frequency="Yearly">Wildlife</option>
+        <option value="Sanctuaries" data-category="Conservation" data-importance="High" data-frequency="Yearly">Sanctuaries</option>
+        <option value="Researchers" data-category="Academic" data-importance="Medium" data-frequency="As Needed">Researchers</option>
+        <option value="Community" data-category="Social" data-importance="Medium" data-frequency="Monthly">Community</option>
+      </select>
+
+      <label for="timePeriod">Time Period:</label>
+      <select id="timePeriod" required>
+        <option value="all-time" data-duration="All Time" data-relevance="High" data-accuracy="Comprehensive">All Time</option>
+        <option value="3-months" data-duration="Last 3 Months" data-relevance="Medium" data-accuracy="Recent">3 Months</option>
+        <option value="6-months" data-duration="Last 6 Months" data-relevance="Medium" data-accuracy="Recent">6 Months</option>
+        <option value="1-year" data-duration="Last 1 Year" data-relevance="Medium" data-accuracy="Recent">1 Year</option>
+      </select>
+
+      <button onclick="fetchResults()">Show Results</button>
+      
+    </div>
+  </div>
+
+  <div id="loader" class="loader" style="display:none;"></div>
+  <div class="container" id="resultsContainer"></div>
+
+  <!-- Elephant Modal -->
+  <div id="elephantModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modalDetails"></div>
+    </div>
+  </div>
+    
+  <div class="container" id="about">
+    <h2>About Elephants and Elephant Husbandry in NER</h2>
+    <p>
+      The North-Eastern Region (NER) is home to a significant population of Asian elephants. These majestic creatures are an integral part of the ecosystem and cultural heritage of the region. 
+      Elephant husbandry in the NER plays a vital role in preserving the rich biodiversity of the area while ensuring the well-being of these animals.
+    </p>
+    <ul>
+      <li>
+        <strong>Population:</strong> Approximately 1,450 elephants are distributed across Assam, Meghalaya, and Arunachal Pradesh.
+      </li>
+      <li>
+        <strong>Habitat:</strong> Elephants inhabit forests, grasslands, and wildlife sanctuaries, including Kaziranga and Manas National Parks.
+      </li>
+      <li>
+        <strong>Behavior:</strong> Elephants are highly social animals, living in herds led by a matriarch.
+      </li>
+      <li>
+        <strong>Conservation Status:</strong> Asian elephants are listed as endangered due to habitat loss and human-elephant conflicts.
+      </li>
+      <li>
+        <strong>Role in Ecosystem:</strong> Elephants play a crucial role in seed dispersal and maintaining forest ecosystems.
+      </li>
+    </ul>
+    <p>
+      The practice of elephant husbandry involves maintaining the health, nutrition, and well-being of elephants while ensuring their natural habitats are protected. 
+      Key initiatives include conflict mitigation, eco-tourism, and community involvement to promote sustainable coexistence between humans and elephants.
+    </p>
+    <p>
+      With centers like Kaziranga, Shillong, and Itanagar, the region is a hub for conservation efforts, research, and community-driven programs aimed at safeguarding these majestic creatures.
+    </p>
+  </div>
+  
+  <div class="container" id="health">
+    <h2>Health Monitoring Information</h2>
+    <p>
+      Regular health monitoring is crucial for ensuring the well-being of elephants in husbandry. The following details highlight the key aspects of health monitoring:
+    </p>
+    <ul>
+      <li>
+        <strong>Routine Checkups:</strong> Elephants undergo monthly health checkups to monitor their overall condition, including weight, dental health, and skin condition.
+      </li>
+      <li>
+        <strong>Vaccination Schedule:</strong> Vaccinations are administered as per the guidelines to prevent diseases such as anthrax and foot-and-mouth disease.
+      </li>
+      <li>
+        <strong>Parasite Control:</strong> Regular deworming and parasite control measures are implemented to ensure the elephants remain healthy.
+      </li>
+      <li>
+        <strong>Stress Monitoring:</strong> Behavioral observations are conducted to identify and mitigate stress factors in elephants.
+      </li>
+      <li>
+        <strong>Emergency Care:</strong> A dedicated team of veterinarians is available to provide immediate medical attention in case of injuries or illnesses.
+      </li>
+      <li>
+        <strong>Health Records:</strong> Comprehensive health records are maintained for each elephant, including details of past treatments, vaccinations, and health checkups.
+      </li>
+    </ul>
+    <p>
+      These measures are carried out under the supervision of experienced veterinarians to ensure the elephants receive the best possible care.
+    </p>
+  </div>
+  <div class="container" id="nutrition">
+    <h2>Nutrition and Food for Elephants</h2>
+    <p>
+      Proper nutrition is essential for the health and well-being of elephants in husbandry. Their diet is carefully planned to meet their nutritional needs and maintain their energy levels.
+    </p>
+    <ul>
+      <li>
+        <strong>Grass and Fodder:</strong> The primary component of an elephant's diet, providing essential fiber for digestion.
+      </li>
+      <li>
+        <strong>Fruits:</strong> Bananas, watermelons, and sugarcane are often included as treats and sources of natural sugars.
+      </li>
+      <li>
+        <strong>Vegetables:</strong> Carrots, pumpkins, and leafy greens are added to provide vitamins and minerals.
+      </li>
+      <li>
+        <strong>Grains:</strong> Rice, wheat, and millets are included to supply carbohydrates and energy.
+      </li>
+      <li>
+        <strong>Supplements:</strong> Mineral blocks and vitamin supplements are provided to ensure balanced nutrition.
+      </li>
+      <li>
+        <strong>Water:</strong> Elephants require large amounts of water daily for hydration and digestion.
+      </li>
+    </ul>
+    <p>
+      The diet is adjusted based on the elephant's age, health condition, and activity level. Regular monitoring by veterinarians ensures that the elephants receive optimal nutrition.
+    </p>
+  </div>
+  <div class="container" id="training">
+    <h2>Elephant Training Programs</h2>
+    <p>
+      Training programs for elephants in the North-Eastern Region (NER) are designed to ensure their well-being while fostering a harmonious relationship with humans. 
+      These programs focus on behavioral training, skill development, and stress management.
+    </p>
+    <ul>
+      <li>
+        <strong>Basic Training:</strong> Involves teaching elephants essential commands and behaviors to ensure their safety and the safety of their handlers.
+      </li>
+      <li>
+        <strong>Advanced Training:</strong> Includes specialized skills such as participating in eco-tourism activities, patrolling, and assisting in conservation efforts.
+      </li>
+      <li>
+        <strong>Stress Management:</strong> Techniques to reduce stress in elephants, including enrichment activities and creating a calm environment.
+      </li>
+      <li>
+        <strong>Health and Fitness:</strong> Physical exercises and routines to maintain the health and fitness of elephants.
+      </li>
+      <li>
+        <strong>Handler-Elephant Bonding:</strong> Programs to strengthen the relationship between handlers and elephants, ensuring mutual trust and understanding.
+      </li>
+    </ul>
+    <p>
+      These training programs are conducted by experienced trainers and veterinarians, ensuring that the elephants are treated with care and respect throughout the process.
+    </p>
+  </div>
+
+  <div class="container" id="conflicts">
+    <h2>Human-Elephant Conflicts</h2>
+    <p>
+      Human-elephant conflicts (HEC) are a significant challenge in regions where human settlements overlap with elephant habitats. These conflicts arise due to habitat loss, agricultural expansion, and human encroachment into forested areas.
+    </p>
+    <ul>
+      <li>
+        <strong>Crop Raiding:</strong> Elephants often raid crops, leading to significant economic losses for farmers.
+      </li>
+      <li>
+        <strong>Human Casualties:</strong> Encounters between humans and elephants can result in injuries or fatalities on both sides.
+      </li>
+      <li>
+        <strong>Habitat Fragmentation:</strong> Deforestation and infrastructure development disrupt elephant migration routes, increasing the likelihood of conflicts.
+      </li>
+      <li>
+        <strong>Mitigation Strategies:</strong> Initiatives such as electric fencing, community awareness programs, and habitat restoration are being implemented to reduce conflicts.
+      </li>
+      <li>
+        <strong>Community Involvement:</strong> Engaging local communities in conservation efforts helps foster coexistence and reduce tensions.
+      </li>
+    </ul>
+    <p>
+      Addressing human-elephant conflicts requires a collaborative approach involving governments, conservation organizations, and local communities to ensure the safety and well-being of both humans and elephants.
+    </p>
+  </div>
+
+  <div class="container" id="community">
+    <h2>Community Members Involved in Elephant Husbandry</h2>
+    <p>
+      The success of elephant husbandry in the North-Eastern Region (NER) is driven by the collective efforts of various community members. 
+      Each group plays a unique role in ensuring the well-being of elephants and fostering coexistence with humans.
+    </p>
+    <ul>
+      <li>
+        <strong>Forest Managers:</strong> Responsible for managing forest resources and elephant habitats, ensuring sustainable practices.
+      </li>
+      <li>
+        <strong>Caretakers:</strong> Provide daily care, feeding, and monitoring of elephants in husbandry centers and sanctuaries.
+      </li>
+      <li>
+        <strong>Veterinarians:</strong> Offer medical care, conduct health check-ups, and respond to emergencies to maintain elephant health.
+      </li>
+      <li>
+        <strong>Self-Help Groups (SHGs):</strong> Empower local communities, especially women, to participate in conservation and sustainable practices.
+      </li>
+      <li>
+        <strong>Local Guides:</strong> Educate visitors about elephants and their habitats, promoting eco-tourism and conservation awareness.
+      </li>
+      <li>
+        <strong>Community Volunteers:</strong> Assist in various conservation activities, including awareness campaigns and habitat restoration projects.
+      </li>
+    </ul>
+  </div>
+
+  <div class="container" id="womenYouthSHG">
+    <h2>Women, Youth, and SHG Group Involvement in Elephant Husbandry</h2>
+    <p>
+      Women, youth, and Self-Help Groups (SHGs) play a crucial role in elephant husbandry in the North-Eastern Region (NER). Their active participation ensures sustainable practices and fosters community-driven conservation efforts.
+    </p>
+    <ul>
+      <li>
+        <strong>Women Empowerment:</strong> Women are actively involved in feeding, monitoring, and caring for elephants. Their participation in SHGs helps them gain financial independence and contribute to conservation efforts.
+      </li>
+      <li>
+        <strong>Youth Engagement:</strong> Youth are engaged in awareness campaigns, eco-tourism initiatives, and conservation education programs, promoting a sense of responsibility toward wildlife.
+      </li>
+      <li>
+        <strong>SHG Contributions:</strong> Self-Help Groups (SHGs) organize community-based activities such as habitat restoration, conflict mitigation, and sustainable livelihood programs.
+      </li>
+      <li>
+        <strong>Skill Development:</strong> Training programs are conducted to equip women and youth with skills in elephant care, eco-tourism, and conflict resolution.
+      </li>
+      <li>
+        <strong>Community Leadership:</strong> Women and youth leaders from SHGs actively participate in decision-making processes, ensuring inclusive and effective conservation strategies.
+      </li>
+    </ul>
+    <p>
+      The involvement of women, youth, and SHGs not only strengthens conservation efforts but also promotes socio-economic development in the region.
+    </p>
+  </div>
+
+  <div class="container" id="ecotourism">
+    <h2>Eco-Tourism Initiatives</h2>
+    <p>
+      Eco-tourism in the North-Eastern Region (NER) of India is a vital initiative aimed at promoting sustainable tourism while conserving the natural habitats of elephants and other wildlife. 
+      It provides visitors with an opportunity to experience the region's rich biodiversity and cultural heritage.
+    </p>
+    <ul>
+      <li>
+        <strong>Elephant Safaris:</strong> Guided safaris in protected areas like Kaziranga National Park allow visitors to observe elephants in their natural habitat.
+      </li>
+      <li>
+        <strong>Conservation Workshops:</strong> Educational workshops for tourists and locals to raise awareness about elephant conservation and habitat protection.
+      </li>
+      <li>
+        <strong>Community-Based Tourism:</strong> Involves local communities in tourism activities, providing them with economic benefits while promoting conservation efforts.
+      </li>
+      <li>
+        <strong>Nature Trails:</strong> Guided nature walks and trails in sanctuaries and forests to educate visitors about the ecosystem and the role of elephants in it.
+      </li>
+      <li>
+        <strong>Eco-Lodges:</strong> Sustainable accommodations near wildlife sanctuaries that minimize environmental impact and support local communities.
+      </li>
+    </ul>
+    <p>
+      These initiatives not only help in generating revenue for conservation but also foster a deeper connection between humans and nature, ensuring the long-term survival of elephants and their habitats.
+    </p>
+  </div>
+
+  <div class="container" id="wildlife">
+    <h2>Nearby Wildlife Sanctuaries</h2>
+    <p>
+      The North-Eastern Region (NER) of India is home to several renowned wildlife sanctuaries that play a crucial role in conserving biodiversity and providing a safe habitat for elephants and other wildlife.
+    </p>
+    <ul>
+      <li>
+        <strong>Kaziranga National Park (Assam):</strong> A UNESCO World Heritage Site, famous for its population of Indian one-horned rhinoceroses and elephants.
+      </li>
+      <li>
+        <strong>Manas National Park (Assam):</strong> Known for its rich biodiversity and as a Project Tiger and Project Elephant reserve.
+      </li>
+      <li>
+        <strong>Nameri National Park (Assam):</strong> A haven for birdwatchers and home to a significant population of elephants.
+      </li>
+      <li>
+        <strong>Balpakram National Park (Meghalaya):</strong> Often referred to as the "Land of Spirits," it is known for its unique biodiversity and scenic beauty.
+      </li>
+      <li>
+        <strong>Dibang Wildlife Sanctuary (Arunachal Pradesh):</strong> A remote sanctuary known for its pristine forests and diverse wildlife, including elephants.
+      </li>
+    </ul>
+    <p>
+      These sanctuaries not only serve as conservation hubs but also attract eco-tourists and researchers from around the world, contributing to the region's ecological and economic sustainability.
+    </p>
+  </div>
+
+  <div class="container" id="researchers">
+    <h2>Researchers and Their Contributions</h2>
+    <p>
+      Researchers play a vital role in understanding and conserving the elephant population in the North-Eastern Region (NER). Their work spans various fields, including ecology, behavior, genetics, and conservation strategies.
+    </p>
+    <ul>
+      <li>
+        <strong>Behavioral Studies:</strong> Researchers analyze elephant behavior to understand their social structure, communication, and migration patterns.
+      </li>
+      <li>
+        <strong>Genetic Research:</strong> Studies on elephant genetics help in understanding population diversity and addressing inbreeding concerns.
+      </li>
+      <li>
+        <strong>Conflict Mitigation:</strong> Researchers develop innovative strategies to reduce human-elephant conflicts, such as early warning systems and habitat restoration.
+      </li>
+      <li>
+        <strong>Conservation Policies:</strong> Their findings contribute to the formulation of policies aimed at protecting elephant habitats and ensuring their long-term survival.
+      </li>
+      <li>
+        <strong>Community Engagement:</strong> Researchers work with local communities to raise awareness about elephant conservation and promote coexistence.
+      </li>
+    </ul>
+    <p>
+      The collaborative efforts of researchers, conservationists, and local communities are essential for safeguarding the future of elephants in the NER.
+    </p>
+  </div>
+
+  <div id="goToTop" onclick="scrollToTop()" title="Go to Top">&#8679;</div>
+
+  <script src="script2.js"></script>
+  <script>
+    // Scroll to Top Function
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Show/Hide "Go to Top" Button
+    window.addEventListener('scroll', () => {
+      const goToTopButton = document.getElementById('goToTop');
+      if (window.scrollY > 300) {
+        goToTopButton.style.display = 'block';
+      } else {
+        goToTopButton.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
